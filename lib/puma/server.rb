@@ -12,6 +12,7 @@ require 'puma/binder'
 require 'puma/delegation'
 require 'puma/accept_nonblock'
 require 'puma/util'
+require 'puma/io_buffer'
 
 require 'puma/puma_http11'
 
@@ -297,7 +298,7 @@ module Puma
 
       @thread_pool = ThreadPool.new(@min_threads,
                                     @max_threads,
-                                    IOBuffer) do |client, buffer|
+                                    ::Puma::IOBuffer) do |client, buffer|
 
         # Advertise this server into the thread
         Thread.current[ThreadLocalKey] = self
